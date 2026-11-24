@@ -1,0 +1,72 @@
+﻿<Window x:Class="TransportTask.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Транспортная задача — СЗУ и минимальный элемент + Excel"
+        Height="880" Width="1150"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" FontSize="18" FontWeight="Bold" Margin="0,0,0,8"
+                   Text="Построение опорного плана: СЗУ и минимальный элемент"/>
+
+        <GroupBox Grid.Row="1" Header="Размерность задачи" Margin="0,0,0,8">
+            <StackPanel Orientation="Horizontal" Margin="6">
+                <TextBlock Text="Поставщиков (строк):" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBox x:Name="RowsTextBox" Width="50" Text="3" VerticalAlignment="Center" TextAlignment="Center"/>
+
+                <TextBlock Text="Потребителей (столбцов):" VerticalAlignment="Center" Margin="20,0,5,0"/>
+                <TextBox x:Name="ColsTextBox" Width="50" Text="5" VerticalAlignment="Center" TextAlignment="Center"/>
+
+                <Button Content="Применить" Width="100" Height="28" Margin="20,0,0,0" Click="OnApplySizeClick"/>
+
+                <TextBlock Text="(При изменении размера таблица пересоздастся с нулями)" 
+                           VerticalAlignment="Center" Margin="15,0,0,0" Foreground="Gray" FontSize="11"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Header="Исходные данные (тарифы, запасы, потребности)" Margin="0,0,0,8">
+            <StackPanel Margin="6">
+                <DataGrid x:Name="InputGrid" AutoGenerateColumns="True"
+                          CanUserAddRows="False" CanUserDeleteRows="False" Height="180"
+                          SelectionMode="Extended" SelectionUnit="Cell"/>
+
+                <WrapPanel Margin="0,8,0,0">
+                    <Button Content="Метод северо-западного угла" Width="200" Height="32" Click="OnSolveNwClick"/>
+                    <Button Content="Метод минимального элемента" Width="200" Height="32" Margin="8,0,0,0" Click="OnSolveMinClick"/>
+                    <Button Content="Очистить" Width="180" Height="32" Margin="20,0,0,0" Click="OnClearClick" Background="#FFF0F0" Foreground="DarkRed"/>
+                    <Button Content="Импорт из Excel" Width="140" Height="32" Margin="20,0,0,0" Click="OnImportClick"/>
+                    <Button Content="Экспорт в Excel" Width="140" Height="32" Margin="8,0,0,0" Click="OnExportClick"/>
+                </WrapPanel>
+            </StackPanel>
+        </GroupBox>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Grid.Column="0" Header="Метод северо-западного угла" Margin="0,0,4,0">
+                <StackPanel Margin="6">
+                    <TextBlock x:Name="NwCostText" FontWeight="Bold" Margin="0,0,0,6"/>
+                    <DataGrid x:Name="NwResultGrid" AutoGenerateColumns="True"
+                              IsReadOnly="True" CanUserAddRows="False" Height="250"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Grid.Column="1" Header="Метод минимального элемента" Margin="4,0,0,0">
+                <StackPanel Margin="6">
+                    <TextBlock x:Name="MinCostText" FontWeight="Bold" Margin="0,0,0,6"/>
+                    <DataGrid x:Name="MinResultGrid" AutoGenerateColumns="True"
+                              IsReadOnly="True" CanUserAddRows="False" Height="250"/>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>
