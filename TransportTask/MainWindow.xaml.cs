@@ -6,7 +6,7 @@ using Microsoft.Win32;
 
 namespace TransportTask
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window 
     {
         private TransportInput _lastInput;
         private SolveResult _lastNw;
